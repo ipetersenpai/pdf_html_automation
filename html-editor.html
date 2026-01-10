@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF HTML Auto Editor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      /* Animation for upload area */
+      @keyframes pulse-border {
+        0%,
+        100% {
+          border-color: #d1d5db;
+        }
+        50% {
+          border-color: #4a6fa5;
+        }
+      }
+
+      .animate-pulse-border {
+        animation: pulse-border 2s infinite;
+      }
+
+      /* Smooth transitions */
+      .transition-all {
+        transition: all 0.3s ease;
+      }
+
+      /* Custom styles for the PDF editor */
+      .pdf-editor-css {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          height: 100%;
+          width: 100%;
+          overscroll-behavior-y: none;
+          touch-action: pan-x;
+        }
+
+        .pdf-scroll-container {
+          display: flex;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scroll-snap-type: x mandatory;
+          width: 100vw;
+          height: 100vh;
+          gap: 10px;
+          scroll-behavior: smooth;
+        }
+
+        .pdf-page {
+          min-width: 100vw;
+          height: 100vh;
+          flex-shrink: 0;
+          scroll-snap-align: start;
+          background: #f9f9f9;
+          box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .fullscreenVideo {
+          display: none;
+          position: fixed;
+          z-index: 99999;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: black;
+        }
+
+        .fullscreenVideo video {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          background: black;
+        }
+
+        .fullscreenVideo .close-btn {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          font-size: 40px;
+          color: white;
+          cursor: pointer;
+          z-index: 100000;
+        }
+
+        /* Ebook styling enhancements */
+        @media (max-width: 768px) {
+          .pdf-page {
+            padding: 15px;
+          }
+        }
+
+        /* Optional: Add page turn effect */
+        .pdf-page {
+          transition: transform 0.3s ease;
+        }
+
+        .pdf-page:active {
+          transform: scale(0.99);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen p-4 md:p-8"
+  >
+    <div class="max-w-6xl mx-auto">
+      <!-- Header -->
+      <header
+        class="bg-white rounded-2xl shadow-xl p-8 md:p-10 text-center mb-8 relative overflow-hidden"
+      >
+        <div
+          class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-700"
+        ></div>
+
+        <div class="flex justify-center mb-6">
+          <div
+            class="w-24 h-24 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center shadow-lg"
+          >
+            <i class="fas fa-book-open text-white text-5xl"></i>
+          </div>
+        </div>
+
+        <h1
+          class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 tracking-tight"
+        >
+          PDF HTML Auto Editor
+        </h1>
+
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Transform your PDFs into responsive, ebook-style web pages
+        </p>
+      </header>
+
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+        <!-- Instructions Card -->
+        <div
+          class="bg-white rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl"
+        >
+          <div class="flex items-center mb-8">
+            <div
+              class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4"
+            >
+              <i class="fas fa-list-ol text-blue-600 text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">
+              Conversion Instructions
+            </h2>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="mb-8 pb-8 border-b border-gray-100">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+              >
+                1
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Prepare Your PDF
+              </h3>
+            </div>
+            <div class="pl-14">
+              <p class="text-gray-600 mb-4">
+                Ensure your PDF file is ready for conversion. If your PDF file
+                size is large, compress it first using:
+              </p>
+              <a
+                href="https://tools.pdf24.org/en/compress-pdf#s=1768077124352"
+                target="_blank"
+                class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              >
+                <i class="fas fa-compress-alt mr-3"></i>
+                PDF24 Compress PDF Tool
+              </a>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="mb-8 pb-8 border-b border-gray-100">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+              >
+                2
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Convert PDF to HTML
+              </h3>
+            </div>
+            <div class="pl-14">
+              <p class="text-gray-600 mb-4">
+                Open the PDF to HTML converter and upload your PDF file:
+              </p>
+              <a
+                href="https://pdfix.io/convert-pdf-to-html/"
+                target="_blank"
+                class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              >
+                <i class="fas fa-exchange-alt mr-3"></i>
+                PDFix PDF to HTML Converter
+              </a>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="mb-4">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+              >
+                3
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Upload Converted HTML
+              </h3>
+            </div>
+            <div class="pl-14">
+              <p class="text-gray-600">
+                Once converted, download the HTML file and upload it here to
+                automatically transform it into an ebook-style layout.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload & Process Card -->
+        <div
+          class="bg-white rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl"
+        >
+          <div class="flex items-center mb-8">
+            <div
+              class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4"
+            >
+              <i class="fas fa-upload text-blue-600 text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Upload & Process</h2>
+          </div>
+
+          <!-- Upload Area -->
+          <div
+            id="uploadTrigger"
+            class="border-3 border-dashed border-gray-300 rounded-2xl p-10 text-center mb-6 cursor-pointer transition-all hover:border-blue-500 animate-pulse-border"
+          >
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-100 to-blue-50 flex items-center justify-center"
+              >
+                <i class="fas fa-file-upload text-blue-400 text-4xl"></i>
+              </div>
+            </div>
+
+            <p class="text-xl font-semibold text-gray-700 mb-2">
+              Click to upload your HTML file
+            </p>
+            <p class="text-gray-500">Supports .html files converted from PDF</p>
+            <input type="file" id="fileInput" accept=".html" class="hidden" />
+          </div>
+
+          <!-- File Preview -->
+          <div
+            id="filePreview"
+            class="hidden bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-5 mb-6 border border-gray-200"
+          >
+            <h3 class="font-semibold text-gray-800 mb-2">Selected File:</h3>
+            <div id="fileName" class="flex items-center text-gray-700">
+              <i class="fas fa-file-code text-blue-500 mr-3"></i>
+              <span class="truncate">No file selected</span>
+            </div>
+          </div>
+
+          <!-- Process Button -->
+          <button
+            onclick="processFile()"
+            class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-600 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center"
+          >
+            <i class="fas fa-magic mr-3"></i>
+            Process & Download
+          </button>
+
+          <!-- Note -->
+          <div
+            class="mt-8 p-5 bg-gradient-to-r from-blue-50 to-gray-50 rounded-xl border-l-4 border-blue-500"
+          >
+            <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+              <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+              What this tool does:
+            </h4>
+            <p class="text-gray-600">
+              This editor automatically transforms PDF-converted HTML into a
+              responsive, ebook-style layout with horizontal scrolling,
+              optimized for reading on any device.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center py-8">
+        <p class="text-gray-600 mb-3">
+          PDF HTML Auto Editor - Transform PDFs into responsive web pages
+        </p>
+        <p class="text-gray-700 font-medium">
+          Developed by
+          <a
+            href="https://github.com/ipetersenpai"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 transition-colors"
+            >ipetersenpai</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Upload area click handler
+      document
+        .getElementById("uploadTrigger")
+        .addEventListener("click", function () {
+          document.getElementById("fileInput").click();
+        });
+
+      // File input change handler
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          const preview = document.getElementById("filePreview");
+          const fileName = document.getElementById("fileName");
+
+          if (file) {
+            preview.classList.remove("hidden");
+            preview.classList.add("flex", "flex-col");
+            fileName.innerHTML = `<i class="fas fa-file-code text-blue-500 mr-3"></i><span class="truncate">${file.name}</span>`;
+
+            // Add visual feedback to upload area
+            const uploadArea = document.getElementById("uploadTrigger");
+            uploadArea.classList.remove("animate-pulse-border");
+            uploadArea.classList.add("border-green-400", "bg-green-50");
+
+            setTimeout(() => {
+              uploadArea.classList.remove("border-green-400", "bg-green-50");
+              uploadArea.classList.add("animate-pulse-border");
+            }, 2000);
+          } else {
+            preview.classList.add("hidden");
+            preview.classList.remove("flex", "flex-col");
+          }
+        });
+
+      function processFile() {
+        const fileInput = document.getElementById("fileInput");
+        if (!fileInput.files.length) {
+          // Show error notification
+          showNotification("Please upload an HTML file.", "error");
+          return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          let html = e.target.result;
+
+          /* ================= ADD CSS STYLES ================= */
+          const styleBlock = `
+                <style>
+                html, body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* prevent all scroll unless in specific containers */
+                height: 100%;
+                width: 100%;
+                overscroll-behavior-y: none;
+                touch-action: pan-x; /* only allow horizontal swipes */
+                }
+
+                .pdf-scroll-container {
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden; /* prevent vertical scroll */
+                scroll-snap-type: x mandatory;
+                width: 100vw;
+                height: 100vh;
+                gap: 10px;
+                scroll-behavior: smooth;
+                }
+
+                .pdf-page {
+                min-width: 100vw;
+                height: 100vh;
+                flex-shrink: 0;
+                scroll-snap-align: start;
+                }
+
+                .fullscreenVideo {
+                display: none;
+                position: fixed;
+                z-index: 99999;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: black;
+                }
+
+                .fullscreenVideo video {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                background: black;
+                }
+
+                .fullscreenVideo .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                font-size: 40px;
+                color: white;
+                cursor: pointer;
+                z-index: 100000;
+                }
+                </style>
+                `;
+
+          if (!html.includes("pdf-scroll-container")) {
+            html = html.replace(/<\/head>/i, styleBlock + "\n</head>");
+          }
+
+          /* ================= WRAP CONTENT ================= */
+
+          // Match <form id="acroform" ...>
+          const acroformRegex = /(<form[^>]*id=["']acroform["'][^>]*>)/i;
+
+          if (
+            acroformRegex.test(html) &&
+            !html.includes('<div class="pdf-scroll-container">')
+          ) {
+            html = html.replace(
+              acroformRegex,
+              `$1\n<div class="pdf-scroll-container">`
+            );
+          }
+
+          // Close container BEFORE </body>
+          if (
+            html.includes('<div class="pdf-scroll-container">') &&
+            !html.includes("</div>\n</body>")
+          ) {
+            html = html.replace(/<\/body>/i, "</div>\n</body>");
+          }
+
+          downloadFile(html, file.name.replace(".html", "-edited.html"));
+        };
+
+        reader.readAsText(file);
+      }
+
+      function downloadFile(content, filename) {
+        const blob = new Blob([content], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Show success notification
+        showNotification(
+          `File "${filename}" has been processed and downloaded successfully!`,
+          "success"
+        );
+      }
+
+      function showNotification(message, type) {
+        // Remove any existing notification
+        const existingNotification = document.getElementById(
+          "custom-notification"
+        );
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+
+        // Create notification
+        const notification = document.createElement("div");
+        notification.id = "custom-notification";
+
+        const bgColor = type === "error" ? "bg-red-500" : "bg-green-500";
+        const icon =
+          type === "error" ? "fa-exclamation-circle" : "fa-check-circle";
+
+        notification.className = `fixed top-6 right-6 ${bgColor} text-white px-6 py-4 rounded-xl shadow-2xl z-50 transform transition-all duration-300 flex items-center max-w-md`;
+        notification.innerHTML = `
+                <i class="fas ${icon} text-xl mr-4"></i>
+                <span>${message}</span>
+            `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+          notification.classList.add("translate-x-0", "opacity-100");
+        }, 10);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+          notification.classList.remove("translate-x-0", "opacity-100");
+          notification.classList.add("translate-x-full", "opacity-0");
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }, 5000);
+      }
+
+      // Add drag and drop functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const uploadArea = document.getElementById("uploadTrigger");
+
+        // Prevent default drag behaviors
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          uploadArea.addEventListener(eventName, preventDefaults, false);
+          document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        // Highlight drop area when item is dragged over it
+        ["dragenter", "dragover"].forEach((eventName) => {
+          uploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ["dragleave", "drop"].forEach((eventName) => {
+          uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+          uploadArea.classList.add("border-blue-500", "bg-blue-50");
+        }
+
+        function unhighlight(e) {
+          uploadArea.classList.remove("border-blue-500", "bg-blue-50");
+        }
+
+        // Handle dropped files
+        uploadArea.addEventListener("drop", handleDrop, false);
+
+        function handleDrop(e) {
+          const dt = e.dataTransfer;
+          const files = dt.files;
+
+          if (files.length > 0) {
+            const file = files[0];
+
+            // Check if it's an HTML file
+            if (file.name.endsWith(".html") || file.type === "text/html") {
+              // Create a new FileList with the dropped file
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              document.getElementById("fileInput").files = dataTransfer.files;
+
+              // Trigger change event
+              document
+                .getElementById("fileInput")
+                .dispatchEvent(new Event("change"));
+            } else {
+              showNotification("Please upload an HTML file (.html)", "error");
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
