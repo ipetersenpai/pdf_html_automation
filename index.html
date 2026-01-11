@@ -200,7 +200,7 @@
       .code-content {
         padding: 20px;
         color: #e2e8f0;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         overflow-x: auto;
         white-space: pre-wrap;
         font-size: 14px;
@@ -298,8 +298,23 @@
             </div>
             <div class="pl-14">
               <p class="text-gray-600 mb-4">
-                Open the PDF to HTML converter and upload your PDF files one by one:
+                Open the PDF to HTML converter and upload your PDF files one by
+                one:
               </p>
+
+              <!-- Highlighted Note -->
+              <div
+                class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-4"
+              >
+                <p class="text-yellow-800 font-medium flex items-center">
+                  <i
+                    class="fas fa-exclamation-triangle text-yellow-500 mr-2"
+                  ></i>
+                  Important: Only use the provided link below. Other converters
+                  may not produce compatible HTML.
+                </p>
+              </div>
+
               <a
                 href="https://pdfix.io/convert-pdf-to-html/"
                 target="_blank"
@@ -326,183 +341,9 @@
             <div class="pl-14">
               <p class="text-gray-600">
                 Once converted, download the HTML files and upload them here to
-                automatically transform them into ebook-style layouts. You can select multiple files at once.
+                automatically transform them into ebook-style layouts. You can
+                select multiple files at once.
               </p>
-            </div>
-          </div>
-
-          <!-- Step 4-6: Video Content Instructions -->
-          <div class="mt-12 pt-8 border-t border-gray-200">
-            <div class="flex items-center mb-6">
-              <div
-                class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4"
-              >
-                <i class="fas fa-video text-purple-600 text-xl"></i>
-              </div>
-              <h2 class="text-2xl font-bold text-gray-800">
-                Adding Video Content
-              </h2>
-            </div>
-
-            <!-- Step 7 -->
-            <div class="mb-8 pb-8 border-b border-gray-100">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
-                >
-                  7
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">
-                  Handle PDF Videos
-                </h3>
-              </div>
-              <div class="pl-12">
-                <p class="text-gray-600 mb-2">
-                  If the PDF contains videos:
-                </p>
-                <ul class="text-gray-600 list-disc pl-5 mb-4">
-                  <li class="mb-1">Download the video files separately</li>
-                  <li class="mb-1">Upload them to the system server</li>
-                </ul>
-                <div class="bg-gray-50 p-4 rounded-lg mb-3">
-                  <p class="text-gray-700 font-medium mb-1">Upload Credentials:</p>
-                  <p class="text-gray-600"><span class="font-medium">Username:</span> johnray</p>
-                  <p class="text-gray-600"><span class="font-medium">Password:</span> password</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 8 -->
-            <div class="mb-8 pb-8 border-b border-gray-100">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
-                >
-                  8
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">
-                  Add Video Control Script
-                </h3>
-              </div>
-              <div class="pl-12">
-                <p class="text-gray-600 mb-3">
-                  Insert the following script between <code class="bg-gray-100 px-2 py-1 rounded">&lt;/body&gt;</code> and <code class="bg-gray-100 px-2 py-1 rounded">&lt;/html&gt;</code>:
-                </p>
-                <div class="code-block">
-                  <div class="code-header">
-                    <span>video-script.js</span>
-                    <button class="copy-btn" data-code="video-script">Copy</button>
-                  </div>
-                  <div class="code-content" id="video-script">
-&lt;script&gt;
-function openVideo(id) {
-  document.getElementById(id).style.display = 'block';
-}
-
-function closeVideo(id) {
-  const videoBox = document.getElementById(id);
-  videoBox.style.display = 'none';
-  const video = videoBox.querySelector('video');
-  video.pause();
-  video.currentTime = 0;
-}
-&lt;/script&gt;</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 9 -->
-            <div class="mb-8 pb-8 border-b border-gray-100">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
-                >
-                  9
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">
-                  Add Fullscreen Video Containers
-                </h3>
-              </div>
-              <div class="pl-12">
-                <p class="text-gray-600 mb-3">
-                  Before the closing <code class="bg-gray-100 px-2 py-1 rounded">&lt;/body&gt;</code> tag, add a fullscreen video container. You may add multiple containers depending on the number of videos:
-                </p>
-                <div class="code-block mb-3">
-                  <div class="code-header">
-                    <span>video-container.html</span>
-                    <button class="copy-btn" data-code="video-container">Copy</button>
-                  </div>
-                  <div class="code-content" id="video-container">
-&lt;div class="fullscreenVideo" id="fullscreenVideo6"&gt;
-  &lt;div class="close-btn" onclick="closeVideo('fullscreenVideo6')"&gt;×&lt;/div&gt;
-  &lt;video controls&gt;
-    &lt;source src="http://128.199.66.214:3500/uploads/videos/video-1752423393137-219211972.mp4" type="video/mp4"&gt;
-    Your browser does not support the video tag.
-  &lt;/video&gt;
-&lt;/div&gt;</div>
-                </div>
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                  <p class="text-gray-700"><strong>Notes:</strong></p>
-                  <ul class="text-gray-600 list-disc pl-5 mt-1">
-                    <li>The ID suffix (e.g., 6) can be changed as needed</li>
-                    <li>The video URL must point to a valid uploaded video</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 10 -->
-            <div class="mb-4">
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
-                >
-                  10
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800">
-                  Add Video Trigger Button
-                </h3>
-              </div>
-              <div class="pl-12">
-                <p class="text-gray-600 mb-3">
-                  Add a button or clickable element at the exact position where the video should be launched. Here's the full code with copy button:
-                </p>
-                <div class="code-block">
-                  <div class="code-header">
-                    <span>video-button.html</span>
-                    <button class="copy-btn" data-code="video-button">Copy</button>
-                  </div>
-                  <div class="code-content" id="video-button">
-&lt;div
-  class="pdf-obj-fixed"
-  style="
-    left: 65;
-    top: 214;
-    width: 68;
-    height: 35;
-    font-size: 24;
-    background-color: white;
-  "
-&gt;
-  &lt;button
-    style="
-      font-size: 20px;
-      padding: 6px 14px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      white-space: nowrap;
-    "
-    onclick="openVideo('fullscreenVideo1')"
-  &gt;
-    Video Lesson: How to Find the Volume of Cylinders &amp; Prisms
-  &lt;/button&gt;
-&lt;/div&gt;</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -536,8 +377,16 @@ function closeVideo(id) {
             <p class="text-xl font-semibold text-gray-700 mb-2">
               Click to upload HTML files
             </p>
-            <p class="text-gray-500">Select multiple .html files converted from PDF</p>
-            <input type="file" id="fileInput" accept=".html" class="hidden" multiple />
+            <p class="text-gray-500">
+              Select multiple .html files converted from PDF
+            </p>
+            <input
+              type="file"
+              id="fileInput"
+              accept=".html"
+              class="hidden"
+              multiple
+            />
           </div>
 
           <!-- File List -->
@@ -558,7 +407,8 @@ function closeVideo(id) {
 
             <div class="mt-4 flex justify-between items-center">
               <div class="text-gray-700">
-                <span id="selectedCount">0</span> of <span id="totalCount">0</span> files selected
+                <span id="selectedCount">0</span> of
+                <span id="totalCount">0</span> files selected
               </div>
               <div>
                 <button
@@ -638,13 +488,296 @@ function closeVideo(id) {
               What this tool does:
             </h4>
             <p class="text-gray-600">
-              This editor automatically transforms PDF-converted HTML into responsive,
-              ebook-style layouts with horizontal scrolling. You can now process multiple files at once!
+              This editor automatically transforms PDF-converted HTML into
+              responsive, ebook-style layouts with horizontal scrolling. You can
+              now process multiple files at once!
             </p>
           </div>
         </div>
       </div>
 
+      <!-- Video Content Instructions Section -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 mt-8">
+        <div class="flex items-center mb-8">
+          <div
+            class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4"
+          >
+            <i class="fas fa-video text-purple-600 text-xl"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">
+              Adding Video Content to Ebooks
+            </h2>
+            <p class="text-gray-600">
+              Learn how to embed videos in your PDF-converted ebooks
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 7: Handle PDF Videos -->
+        <div class="mb-10">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4"
+            >
+              7
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">
+              Handle PDF Videos
+            </h3>
+          </div>
+
+          <div class="ml-14">
+            <p class="text-gray-700 mb-3">If the PDF contains videos:</p>
+            <ul class="text-gray-600 list-disc pl-5 mb-4 space-y-1">
+              <li>Download the video files separately from the PDF</li>
+              <li>
+                Upload them to the system server using the credentials below
+              </li>
+            </ul>
+
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h4 class="font-medium text-gray-800 mb-2">
+                Server Upload Credentials:
+              </h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <span class="text-gray-600">Username:</span>
+                  <span class="font-medium ml-2">johnray</span>
+                </div>
+                <div>
+                  <span class="text-gray-600">Password:</span>
+                  <span class="font-medium ml-2">password</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 8: Video Control Script -->
+        <div class="mb-10">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4"
+            >
+              8
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">
+              Add Video Control Script
+            </h3>
+          </div>
+
+          <div class="ml-14">
+            <p class="text-gray-700 mb-3">
+              Insert this JavaScript code between the
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
+                >&lt;/body&gt;</code
+              >
+              and
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
+                >&lt;/html&gt;</code
+              >
+              tags:
+            </p>
+
+            <div
+              class="bg-gray-900 rounded-lg overflow-hidden border border-gray-700"
+            >
+              <div
+                class="flex justify-between items-center bg-gray-800 px-4 py-3"
+              >
+                <span class="text-gray-300 font-mono text-sm"
+                  >video-controls.js</span
+                >
+                <button
+                  class="copy-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                  data-code="video-script"
+                >
+                  <i class="fas fa-copy mr-1"></i> Copy
+                </button>
+              </div>
+              <pre
+                class="text-gray-200 p-4 overflow-x-auto text-sm font-mono"
+                id="video-script"
+              >
+&lt;script&gt;
+function openVideo(id) {
+  document.getElementById(id).style.display = 'block';
+}
+
+function closeVideo(id) {
+  const videoBox = document.getElementById(id);
+  videoBox.style.display = 'none';
+  const video = videoBox.querySelector('video');
+  video.pause();
+  video.currentTime = 0;
+}
+&lt;/script&gt;</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 9: Video Containers -->
+        <div class="mb-10">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4"
+            >
+              9
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">
+              Add Fullscreen Video Containers
+            </h3>
+          </div>
+
+          <div class="ml-14">
+            <p class="text-gray-700 mb-3">
+              Add this HTML structure before the closing
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
+                >&lt;/body&gt;</code
+              >
+              tag. Create one container for each video:
+            </p>
+
+            <div
+              class="bg-gray-900 rounded-lg overflow-hidden border border-gray-700 mb-4"
+            >
+              <div
+                class="flex justify-between items-center bg-gray-800 px-4 py-3"
+              >
+                <span class="text-gray-300 font-mono text-sm"
+                  >video-container.html</span
+                >
+                <button
+                  class="copy-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                  data-code="video-container"
+                >
+                  <i class="fas fa-copy mr-1"></i> Copy
+                </button>
+              </div>
+              <pre
+                class="text-gray-200 p-4 overflow-x-auto text-sm font-mono"
+                id="video-container"
+              >
+&lt;div class="fullscreenVideo" id="fullscreenVideo6"&gt;
+  &lt;div class="close-btn" onclick="closeVideo('fullscreenVideo6')"&gt;×&lt;/div&gt;
+  &lt;video controls&gt;
+    &lt;source src="http://128.199.66.214:3500/uploads/videos/video-1752423393137-219211972.mp4" type="video/mp4"&gt;
+    Your browser does not support the video tag.
+  &lt;/video&gt;
+&lt;/div&gt;</pre
+              >
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+              <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                Important Notes:
+              </h4>
+              <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                <li>
+                  The ID suffix (e.g.,
+                  <code class="bg-yellow-100 px-1 rounded">6</code>) should
+                  match your video number
+                </li>
+                <li>
+                  Update the
+                  <code class="bg-yellow-100 px-1 rounded">src</code> attribute
+                  with your actual video URL
+                </li>
+                <li>Create multiple containers if you have multiple videos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 10: Video Trigger Button -->
+        <div>
+          <div class="flex items-center mb-4">
+            <div
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4"
+            >
+              10
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">
+              Add Video Trigger Button
+            </h3>
+          </div>
+
+          <div class="ml-14">
+            <p class="text-gray-700 mb-3">
+              Add this button code at the position where you want the video to
+              launch from. Adjust the positioning values as needed:
+            </p>
+
+            <div
+              class="bg-gray-900 rounded-lg overflow-hidden border border-gray-700"
+            >
+              <div
+                class="flex justify-between items-center bg-gray-800 px-4 py-3"
+              >
+                <span class="text-gray-300 font-mono text-sm"
+                  >video-trigger.html</span
+                >
+                <button
+                  class="copy-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                  data-code="video-button"
+                >
+                  <i class="fas fa-copy mr-1"></i> Copy
+                </button>
+              </div>
+              <pre
+                class="text-gray-200 p-4 overflow-x-auto text-sm font-mono"
+                id="video-button"
+              >
+&lt;div class="pdf-obj-fixed" style="
+  left: 65;
+  top: 214;
+  width: 68;
+  height: 35;
+  font-size: 24;
+  background-color: white;"&gt;
+  &lt;button
+    style="
+      font-size: 20px;
+      padding: 6px 14px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;"
+    onclick="openVideo('fullscreenVideo1')"&gt;
+    Video Lesson: How to Find the Volume of Cylinders &amp; Prisms
+  &lt;/button&gt;
+&lt;/div&gt;</pre
+              >
+            </div>
+
+            <div class="mt-4 bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                <i class="fas fa-lightbulb text-blue-500 mr-2"></i>
+                Customization Tips:
+              </h4>
+              <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                <li>
+                  Adjust <code class="bg-blue-100 px-1 rounded">left</code> and
+                  <code class="bg-blue-100 px-1 rounded">top</code> values for
+                  positioning
+                </li>
+                <li>
+                  Change
+                  <code class="bg-blue-100 px-1 rounded">onclick</code> to match
+                  your video container ID
+                </li>
+                <li>Modify button text and styling as needed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Footer -->
       <footer class="text-center py-8">
         <p class="text-gray-600 mb-3">
@@ -683,24 +816,27 @@ function closeVideo(id) {
       const progressText = document.getElementById("progressText");
 
       // Copy button functionality
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('copy-btn')) {
-          const codeId = e.target.getAttribute('data-code');
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("copy-btn")) {
+          const codeId = e.target.getAttribute("data-code");
           const codeElement = document.getElementById(codeId);
           const codeText = codeElement.textContent;
-          
-          navigator.clipboard.writeText(codeText).then(() => {
-            const originalText = e.target.textContent;
-            e.target.textContent = 'Copied!';
-            e.target.classList.add('copied');
-            
-            setTimeout(() => {
-              e.target.textContent = originalText;
-              e.target.classList.remove('copied');
-            }, 2000);
-          }).catch(err => {
-            console.error('Failed to copy: ', err);
-          });
+
+          navigator.clipboard
+            .writeText(codeText)
+            .then(() => {
+              const originalText = e.target.textContent;
+              e.target.textContent = "Copied!";
+              e.target.classList.add("copied");
+
+              setTimeout(() => {
+                e.target.textContent = originalText;
+                e.target.classList.remove("copied");
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error("Failed to copy: ", err);
+            });
         }
       });
 
@@ -714,8 +850,10 @@ function closeVideo(id) {
         const files = Array.from(e.target.files);
 
         // Filter only HTML files
-        const htmlFiles = files.filter(file =>
-          file.name.toLowerCase().endsWith('.html') || file.type === 'text/html'
+        const htmlFiles = files.filter(
+          (file) =>
+            file.name.toLowerCase().endsWith(".html") ||
+            file.type === "text/html"
         );
 
         if (htmlFiles.length === 0) {
@@ -724,13 +862,17 @@ function closeVideo(id) {
         }
 
         // Add new files to uploadedFiles array
-        htmlFiles.forEach(file => {
+        htmlFiles.forEach((file) => {
           // Check if file already exists
-          if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+          if (
+            !uploadedFiles.some(
+              (f) => f.name === file.name && f.size === file.size
+            )
+          ) {
             uploadedFiles.push({
               file: file,
               id: generateFileId(),
-              selected: true
+              selected: true,
             });
           }
         });
@@ -753,28 +895,37 @@ function closeVideo(id) {
         }
 
         fileListContainer.classList.remove("hidden");
-        fileList.innerHTML = '';
+        fileList.innerHTML = "";
 
         uploadedFiles.forEach((fileObj, index) => {
           const fileItem = document.createElement("div");
-          fileItem.className = "file-item bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between";
+          fileItem.className =
+            "file-item bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between";
           fileItem.innerHTML = `
             <div class="flex items-center">
               <input
                 type="checkbox"
                 id="file-${fileObj.id}"
                 class="file-checkbox hidden"
-                ${fileObj.selected ? 'checked' : ''}
+                ${fileObj.selected ? "checked" : ""}
               />
-              <label for="file-${fileObj.id}" class="file-label cursor-pointer flex items-center p-2 border border-gray-300 rounded-lg transition-all">
+              <label for="file-${
+                fileObj.id
+              }" class="file-label cursor-pointer flex items-center p-2 border border-gray-300 rounded-lg transition-all">
                 <i class="fas fa-file-code text-blue-500 text-lg mr-3"></i>
                 <div>
-                  <div class="font-medium text-gray-800 truncate max-w-xs">${fileObj.file.name}</div>
-                  <div class="text-xs text-gray-500">${formatFileSize(fileObj.file.size)}</div>
+                  <div class="font-medium text-gray-800 truncate max-w-xs">${
+                    fileObj.file.name
+                  }</div>
+                  <div class="text-xs text-gray-500">${formatFileSize(
+                    fileObj.file.size
+                  )}</div>
                 </div>
               </label>
             </div>
-            <button class="delete-file text-red-400 hover:text-red-600 p-2" data-id="${fileObj.id}">
+            <button class="delete-file text-red-400 hover:text-red-600 p-2" data-id="${
+              fileObj.id
+            }">
               <i class="fas fa-times"></i>
             </button>
           `;
@@ -782,15 +933,15 @@ function closeVideo(id) {
 
           // Add event listener to checkbox
           const checkbox = fileItem.querySelector(`#file-${fileObj.id}`);
-          checkbox.addEventListener('change', function() {
+          checkbox.addEventListener("change", function () {
             fileObj.selected = this.checked;
             updateSelectedCount();
           });
 
           // Add event listener to delete button
-          const deleteBtn = fileItem.querySelector('.delete-file');
-          deleteBtn.addEventListener('click', function() {
-            const fileId = this.getAttribute('data-id');
+          const deleteBtn = fileItem.querySelector(".delete-file");
+          deleteBtn.addEventListener("click", function () {
+            const fileId = this.getAttribute("data-id");
             removeFile(fileId);
           });
 
@@ -822,7 +973,7 @@ function closeVideo(id) {
       // Update selected file count
       function updateSelectedCount() {
         selectedFiles.clear();
-        uploadedFiles.forEach(fileObj => {
+        uploadedFiles.forEach((fileObj) => {
           if (fileObj.selected) {
             selectedFiles.add(fileObj.id);
           }
@@ -842,7 +993,9 @@ function closeVideo(id) {
 
       // Remove file from list
       function removeFile(fileId) {
-        uploadedFiles = uploadedFiles.filter(fileObj => fileObj.id !== fileId);
+        uploadedFiles = uploadedFiles.filter(
+          (fileObj) => fileObj.id !== fileId
+        );
         selectedFiles.delete(fileId);
         updateFileList();
         updateUploadArea();
@@ -850,34 +1003,34 @@ function closeVideo(id) {
 
       // Format file size
       function formatFileSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
+        if (bytes === 0) return "0 Bytes";
         const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const sizes = ["Bytes", "KB", "MB", "GB"];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
       }
 
       // Select all files
-      selectAllBtn.addEventListener('click', function() {
-        uploadedFiles.forEach(fileObj => {
+      selectAllBtn.addEventListener("click", function () {
+        uploadedFiles.forEach((fileObj) => {
           fileObj.selected = true;
         });
         updateFileList();
       });
 
       // Deselect all files
-      deselectAllBtn.addEventListener('click', function() {
-        uploadedFiles.forEach(fileObj => {
+      deselectAllBtn.addEventListener("click", function () {
+        uploadedFiles.forEach((fileObj) => {
           fileObj.selected = false;
         });
         updateFileList();
       });
 
       // Clear all files
-      clearAllBtn.addEventListener('click', function() {
+      clearAllBtn.addEventListener("click", function () {
         uploadedFiles = [];
         selectedFiles.clear();
-        fileInput.value = '';
+        fileInput.value = "";
         updateFileList();
         updateUploadArea();
       });
@@ -885,16 +1038,21 @@ function closeVideo(id) {
       // Process files function
       async function processFiles() {
         if (uploadedFiles.length === 0 || selectedFiles.size === 0) {
-          showNotification("Please select at least one file to process.", "error");
+          showNotification(
+            "Please select at least one file to process.",
+            "error"
+          );
           return;
         }
 
         // Determine which files to process
-        const processOption = document.querySelector('input[name="processOption"]:checked').value;
+        const processOption = document.querySelector(
+          'input[name="processOption"]:checked'
+        ).value;
         let filesToProcess = [];
 
-        if (processOption === 'selected') {
-          filesToProcess = uploadedFiles.filter(fileObj => fileObj.selected);
+        if (processOption === "selected") {
+          filesToProcess = uploadedFiles.filter((fileObj) => fileObj.selected);
         } else {
           filesToProcess = uploadedFiles;
         }
@@ -914,7 +1072,7 @@ function closeVideo(id) {
           const fileObj = filesToProcess[i];
 
           // Update progress
-          const progressPercent = ((i) / filesToProcess.length) * 100;
+          const progressPercent = (i / filesToProcess.length) * 100;
           progressBar.style.width = `${progressPercent}%`;
           progressText.textContent = `${i}/${filesToProcess.length}`;
 
@@ -928,7 +1086,9 @@ function closeVideo(id) {
 
         // Show success message
         showNotification(
-          `Successfully processed ${filesToProcess.length} file${filesToProcess.length > 1 ? 's' : ''}.`,
+          `Successfully processed ${filesToProcess.length} file${
+            filesToProcess.length > 1 ? "s" : ""
+          }.`,
           "success"
         );
 
@@ -943,7 +1103,7 @@ function closeVideo(id) {
         return new Promise((resolve) => {
           const reader = new FileReader();
 
-          reader.onload = function(e) {
+          reader.onload = function (e) {
             let html = e.target.result;
 
             /* ================= ADD CSS STYLES ================= */
@@ -1015,12 +1175,21 @@ function closeVideo(id) {
             // Match <form id="acroform" ...>
             const acroformRegex = /(<form[^>]*id=["']acroform["'][^>]*>)/i;
 
-            if (acroformRegex.test(html) && !html.includes('<div class="pdf-scroll-container">')) {
-              html = html.replace(acroformRegex, `$1\n<div class="pdf-scroll-container">`);
+            if (
+              acroformRegex.test(html) &&
+              !html.includes('<div class="pdf-scroll-container">')
+            ) {
+              html = html.replace(
+                acroformRegex,
+                `$1\n<div class="pdf-scroll-container">`
+              );
             }
 
             // Close container BEFORE </body>
-            if (html.includes('<div class="pdf-scroll-container">') && !html.includes("</div>\n</body>")) {
+            if (
+              html.includes('<div class="pdf-scroll-container">') &&
+              !html.includes("</div>\n</body>")
+            ) {
               html = html.replace(/<\/body>/i, "</div>\n</body>");
             }
 
@@ -1051,7 +1220,9 @@ function closeVideo(id) {
       // Show notification function
       function showNotification(message, type) {
         // Remove any existing notification
-        const existingNotification = document.getElementById("custom-notification");
+        const existingNotification = document.getElementById(
+          "custom-notification"
+        );
         if (existingNotification) {
           existingNotification.remove();
         }
@@ -1061,7 +1232,8 @@ function closeVideo(id) {
         notification.id = "custom-notification";
 
         const bgColor = type === "error" ? "bg-red-500" : "bg-green-500";
-        const icon = type === "error" ? "fa-exclamation-circle" : "fa-check-circle";
+        const icon =
+          type === "error" ? "fa-exclamation-circle" : "fa-check-circle";
 
         notification.className = `fixed top-6 right-6 ${bgColor} text-white px-6 py-4 rounded-xl shadow-2xl z-50 transform transition-all duration-300 flex items-center max-w-md`;
         notification.innerHTML = `
@@ -1089,7 +1261,7 @@ function closeVideo(id) {
       }
 
       // Add drag and drop functionality
-      document.addEventListener("DOMContentLoaded", function() {
+      document.addEventListener("DOMContentLoaded", function () {
         // Prevent default drag behaviors
         ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
           uploadTrigger.addEventListener(eventName, preventDefaults, false);
@@ -1127,8 +1299,10 @@ function closeVideo(id) {
 
           if (files.length > 0) {
             // Filter HTML files
-            const htmlFiles = Array.from(files).filter(file =>
-              file.name.toLowerCase().endsWith('.html') || file.type === 'text/html'
+            const htmlFiles = Array.from(files).filter(
+              (file) =>
+                file.name.toLowerCase().endsWith(".html") ||
+                file.type === "text/html"
             );
 
             if (htmlFiles.length === 0) {
@@ -1137,13 +1311,17 @@ function closeVideo(id) {
             }
 
             // Add files to uploadedFiles array
-            htmlFiles.forEach(file => {
+            htmlFiles.forEach((file) => {
               // Check if file already exists
-              if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+              if (
+                !uploadedFiles.some(
+                  (f) => f.name === file.name && f.size === file.size
+                )
+              ) {
                 uploadedFiles.push({
                   file: file,
                   id: generateFileId(),
-                  selected: true
+                  selected: true,
                 });
               }
             });
