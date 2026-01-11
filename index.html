@@ -159,6 +159,53 @@
         width: 0%;
         transition: width 0.3s ease;
       }
+
+      /* Code block styling */
+      .code-block {
+        position: relative;
+        background-color: #1e293b;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #0f172a;
+        color: #cbd5e1;
+        font-family: monospace;
+      }
+
+      .copy-btn {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background-color 0.2s;
+      }
+
+      .copy-btn:hover {
+        background-color: #2563eb;
+      }
+
+      .copy-btn.copied {
+        background-color: #10b981;
+      }
+
+      .code-content {
+        padding: 20px;
+        color: #e2e8f0;
+        font-family: 'Courier New', monospace;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        font-size: 14px;
+        line-height: 1.5;
+      }
     </style>
   </head>
   <body
@@ -281,6 +328,181 @@
                 Once converted, download the HTML files and upload them here to
                 automatically transform them into ebook-style layouts. You can select multiple files at once.
               </p>
+            </div>
+          </div>
+
+          <!-- Step 4-6: Video Content Instructions -->
+          <div class="mt-12 pt-8 border-t border-gray-200">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-video text-purple-600 text-xl"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Adding Video Content
+              </h2>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="mb-8 pb-8 border-b border-gray-100">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+                >
+                  7
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Handle PDF Videos
+                </h3>
+              </div>
+              <div class="pl-12">
+                <p class="text-gray-600 mb-2">
+                  If the PDF contains videos:
+                </p>
+                <ul class="text-gray-600 list-disc pl-5 mb-4">
+                  <li class="mb-1">Download the video files separately</li>
+                  <li class="mb-1">Upload them to the system server</li>
+                </ul>
+                <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                  <p class="text-gray-700 font-medium mb-1">Upload Credentials:</p>
+                  <p class="text-gray-600"><span class="font-medium">Username:</span> johnray</p>
+                  <p class="text-gray-600"><span class="font-medium">Password:</span> password</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="mb-8 pb-8 border-b border-gray-100">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+                >
+                  8
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Add Video Control Script
+                </h3>
+              </div>
+              <div class="pl-12">
+                <p class="text-gray-600 mb-3">
+                  Insert the following script between <code class="bg-gray-100 px-2 py-1 rounded">&lt;/body&gt;</code> and <code class="bg-gray-100 px-2 py-1 rounded">&lt;/html&gt;</code>:
+                </p>
+                <div class="code-block">
+                  <div class="code-header">
+                    <span>video-script.js</span>
+                    <button class="copy-btn" data-code="video-script">Copy</button>
+                  </div>
+                  <div class="code-content" id="video-script">
+&lt;script&gt;
+function openVideo(id) {
+  document.getElementById(id).style.display = 'block';
+}
+
+function closeVideo(id) {
+  const videoBox = document.getElementById(id);
+  videoBox.style.display = 'none';
+  const video = videoBox.querySelector('video');
+  video.pause();
+  video.currentTime = 0;
+}
+&lt;/script&gt;</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 9 -->
+            <div class="mb-8 pb-8 border-b border-gray-100">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+                >
+                  9
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Add Fullscreen Video Containers
+                </h3>
+              </div>
+              <div class="pl-12">
+                <p class="text-gray-600 mb-3">
+                  Before the closing <code class="bg-gray-100 px-2 py-1 rounded">&lt;/body&gt;</code> tag, add a fullscreen video container. You may add multiple containers depending on the number of videos:
+                </p>
+                <div class="code-block mb-3">
+                  <div class="code-header">
+                    <span>video-container.html</span>
+                    <button class="copy-btn" data-code="video-container">Copy</button>
+                  </div>
+                  <div class="code-content" id="video-container">
+&lt;div class="fullscreenVideo" id="fullscreenVideo6"&gt;
+  &lt;div class="close-btn" onclick="closeVideo('fullscreenVideo6')"&gt;×&lt;/div&gt;
+  &lt;video controls&gt;
+    &lt;source src="http://128.199.66.214:3500/uploads/videos/video-1752423393137-219211972.mp4" type="video/mp4"&gt;
+    Your browser does not support the video tag.
+  &lt;/video&gt;
+&lt;/div&gt;</div>
+                </div>
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                  <p class="text-gray-700"><strong>Notes:</strong></p>
+                  <ul class="text-gray-600 list-disc pl-5 mt-1">
+                    <li>The ID suffix (e.g., 6) can be changed as needed</li>
+                    <li>The video URL must point to a valid uploaded video</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 10 -->
+            <div class="mb-4">
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center text-white font-bold mr-4 shadow-md"
+                >
+                  10
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Add Video Trigger Button
+                </h3>
+              </div>
+              <div class="pl-12">
+                <p class="text-gray-600 mb-3">
+                  Add a button or clickable element at the exact position where the video should be launched. Here's the full code with copy button:
+                </p>
+                <div class="code-block">
+                  <div class="code-header">
+                    <span>video-button.html</span>
+                    <button class="copy-btn" data-code="video-button">Copy</button>
+                  </div>
+                  <div class="code-content" id="video-button">
+&lt;div
+  class="pdf-obj-fixed"
+  style="
+    left: 65;
+    top: 214;
+    width: 68;
+    height: 35;
+    font-size: 24;
+    background-color: white;
+  "
+&gt;
+  &lt;button
+    style="
+      font-size: 20px;
+      padding: 6px 14px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+    "
+    onclick="openVideo('fullscreenVideo1')"
+  &gt;
+    Video Lesson: How to Find the Volume of Cylinders &amp; Prisms
+  &lt;/button&gt;
+&lt;/div&gt;</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -459,6 +681,28 @@
       const progressContainer = document.getElementById("progressContainer");
       const progressBar = document.getElementById("progressBar");
       const progressText = document.getElementById("progressText");
+
+      // Copy button functionality
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('copy-btn')) {
+          const codeId = e.target.getAttribute('data-code');
+          const codeElement = document.getElementById(codeId);
+          const codeText = codeElement.textContent;
+          
+          navigator.clipboard.writeText(codeText).then(() => {
+            const originalText = e.target.textContent;
+            e.target.textContent = 'Copied!';
+            e.target.classList.add('copied');
+            
+            setTimeout(() => {
+              e.target.textContent = originalText;
+              e.target.classList.remove('copied');
+            }, 2000);
+          }).catch(err => {
+            console.error('Failed to copy: ', err);
+          });
+        }
+      });
 
       // Upload area click handler
       uploadTrigger.addEventListener("click", function () {
